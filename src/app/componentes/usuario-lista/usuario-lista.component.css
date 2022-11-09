@@ -1,0 +1,22 @@
+.botonesFiltros{
+    display:flex;
+    justify-content: space-around;
+    align-items:center;
+}
+
+.contenedorAlertas{
+    font-size:25px;
+    display:flex;
+    justify-content: center;
+}
+
+.titulo{
+    background-color: blueviolet;
+    color:white;
+    margin-bottom: 20px;
+   
+    
+}
+
+
+

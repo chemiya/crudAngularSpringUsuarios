@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container titulo">
+        <div class="row">
+            <h1 class="text-center">Aplicacion para la gestion de usuarios</h1>
+        </div>
+    </div>
+
+
+    <!--contenedor para mostrar el mensaje que informe de si se han realizado las operaciones-->
+    <div class="container contenedorAlertas">
+        <p *ngIf="!showMessage">Selecciona la accion que quieres realizar</p>
+        <p *ngIf="showMessage">{{message}}</p>
+    </div>
+
+
+    <div class="container">
+        <div class="row botonesFiltros">
+            <div class="col">
+                <!--boton para crear nuevo usuario-->
+                <a class="btn btn-primary" [routerLink]="['/usuarios/nuevo']">Crear nuevo usuario</a>
+            </div>
+            <div class="col">
+                <!--boton para guardar los cambios de enabled-->
+                <button [disabled]="botonGuardarCambios" class="btn btn-success" (click)="guardarEnabled()">Guardar
+                    cambios enabled </button>
+            </div>
+
+            <div>
+
+                <!--despegable para filtrar los usuarios-->
+                <select [ngModel]="tipoFiltrado" (ngModelChange)="onChangeDespegable($event)">
+                    <option value="true">mostrar solo los enabled true</option>
+                    <option value="false">mostrar solo los enabled false</option>
+                    <option value="todos">mostrar todos</option>
+                </select>
+
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+    <!--tabla con los usuarios-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <form class="form-inline">
+                    <fieldset class="form-group col-sm-12"></fieldset>
+                    <fieldset class="form-group col-sm-1">
+
+                    </fieldset>
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="row">
+                            <th>name</th>
+                            <th>firstName</th>
+                            <th>lastName</th>
+                            <th>email</th>
+                            <th>password</th>
+                            <th> enabled</th>
+                            <th>role</th>
+                            <th>createdAt</th>
+                            <th>updatedAt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of Usuarios" class="row">
+                            <td><i>{{usuario.name}}</i></td>
+                            <td><i>{{usuario.firstName}}</i></td>
+                            <td><i>{{usuario.lastName}}</i></td>
+                            <td><i>{{usuario.email}}</i></td>
+                            <td><i>{{usuario.password}}</i></td>
+                            <!--checkbox que muestra si enabled o no-->
+                            <td><input [(ngModel)]="usuario.enabled" type="checkbox"
+                                    (change)="cambioCheckbox(usuario.id,usuario.enabled)"></td>
+                            <td><i>{{usuario.role}}</i></td>
+                            <td><i>{{usuario.createdAt}}</i></td>
+                            <td><i>{{usuario.updatedAt}}</i></td>
+                            <!--boton para editar el usuario-->
+                            <td><a class="btn btn-info" [routerLink]="['/usuarios', usuario.id,
+    'editar']"> Editar </a> </td>
+                            <!--boton para borrar-->
+                            <td><a class="btn btn-danger" (click)="borrar(usuario.id)">eliminar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
